@@ -1,0 +1,17 @@
+.month{
+  display:flex;
+}
+
+.chart{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  
+}
+
+.graph{
+  width: 75%;
+  height:50%;
+
+}
