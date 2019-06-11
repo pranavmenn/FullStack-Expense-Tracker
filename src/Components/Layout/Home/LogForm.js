@@ -6,6 +6,7 @@ import axios from 'axios';
 //import { connect } from 'react-redux';
 import './LogForm.css';
 import moment from 'moment';
+import Header from './Header';
 import ShopContext from '../../../context/shop-context';
 
 
@@ -72,24 +73,30 @@ reset = () =>{
 handleSubmit = (event) => {
   event.preventDefault();
   console.log(this.name);
+
   const user=localStorage.getItem('username');
   const {id, name,amount} = this.state;
+  if((id!=null)||(name!=null)||(amount!=null)){
+    const formatted_date=moment(this.state.date).format("YYYY-MM-DD");
+    console.log(formatted_date);
+    axios.post('http://localhost:4000/api/putDataToDB/'+user, {
+      sno: id,
+      date: formatted_date,
+      name: name,
+      amount: amount
+    })
+    .then((response)=>{
+      console.log(response);
+      this.setState({loading: false,message:"Saved successfully"});
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
 
-  const formatted_date=moment(this.state.date).format("YYYY-MM-DD");
-  console.log(formatted_date);
-  axios.post('http://localhost:4000/api/putDataToDB/'+user, {
-    sno: id,
-    date: formatted_date,
-    name: name,
-    amount: amount
-  })
-  .then((response)=>{
-    console.log(response);
-    this.setState({loading: false,message:"Saved successfully"});
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+  else{
+    alert("Empty fields");
+  }
 }
 
   render(){
@@ -107,6 +114,7 @@ handleSubmit = (event) => {
     return(
 
           <Fragment>
+            <Header />
             <div >
             <Link to="/home"><Button variant="contained" color="primary"> Go Back  </Button></Link>
             </div>

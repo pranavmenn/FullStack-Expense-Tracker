@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import {  Link,  Redirect  } from 'react-router-dom';
+import Drawer from '@material-ui/core/Drawer';
 import LogCard from './LogCard';
 import HistoryCard from './HistoryCard';
 import Button from '@material-ui/core/Button';
 import Logout from './Logout';
 import axios from 'axios';
-import Chart from './Chart';
 import ChartCard from './ChartCard';
 import ShopContext from '../../../context/shop-context';
+import Header from '../Home/Header';
+import IconButton from '@material-ui/core/IconButton';
 //import { connect } from 'react-redux';
 //import loggedIn from '../../../store/expense/actions';
 import './home.css';
-import { PDFExport } from '@progress/kendo-react-pdf';
 
 
 class Home extends Component{
@@ -66,7 +67,7 @@ componentDidMount(){
     return(
 
 <div className="card-main">
-
+  <Header />
   <div className="Logout">
     <Logout  />
   </div>
@@ -76,6 +77,11 @@ componentDidMount(){
 
 
 <div className="cards" >
+  {/*<Drawer variant="permanent"  >
+    <IconButton>
+            H
+      </IconButton>
+    </Drawer>*/}
     <div className="card-1">
 
       <LogCard />

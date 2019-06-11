@@ -14,7 +14,8 @@ import loggedIn from '../../../store/expense/actions';
 import withSpinner from '../Home/withSpinner';
 import Home from '../Home/Home';
 import ShopContext from '../../../context/shop-context';
-
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Avatar from '@material-ui/core/Avatar';
 
 class LoginBackend extends Component{
 
@@ -106,39 +107,37 @@ storeToken = () => {
 
 
           <div className="home">
+            <div className="card">
+              <Avatar>
+                <LockOutlinedIcon />
+            </Avatar>
+              <Typography component="h1" variant="h5">
+                Sign in
+              </Typography>
 
-            <Card >
-                <CardContent>
-                <div className="CardContent">
+                  <div className="CardContent">
 
+
+                  <TextField  label="User Name" name="username" onChange={this.handleChange} /><br />
+                  <TextField  label="Password" type="password" name="password" onChange={this.handleChange}  /><br /><br />
+
+                  <div className="button">
+
+                    <Button variant="contained" color="primary" onClick={this.login}>Login</Button>
+
+                  </div><br />
+                  <br />
                   <Typography variant="h6" color="inherit">
-                  Login
-                  </Typography><br />
-                <TextField  label="User Name" name="username" onChange={this.handleChange} /><br />
-                <TextField  label="Password" type="password" name="password" onChange={this.handleChange}  /><br /><br />
+                  Not Registered?
+                  </Typography>
+                  <Link exact to="/register">
+                  Register
+                  </Link>
 
-                <div className="button">
+                  </div>
+            </div>
 
-                  <Button variant="contained" color="primary" onClick={this.login}>Login</Button>
-
-                </div><br />
-                <br />
-                <Typography variant="h6" color="inherit">
-                Not Registered?
-                </Typography>
-                <Link exact to="/register">
-                Register
-                </Link>
-
-                </div>
-
-                </CardContent>
-              </Card>
-
-
-
-
-          </div>
+</div>
 
     )
   }
