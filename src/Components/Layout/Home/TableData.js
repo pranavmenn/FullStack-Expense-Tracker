@@ -1,18 +1,14 @@
 import React,{Component,Fragment} from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import axios from 'axios';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/EditOutlined';
-import Edit from './Edit';
 import './history.css';
 import moment from 'moment';
-import { PDFExport } from '@progress/kendo-react-pdf';
-import LoadingIndicator from './LoadingIndicator.js';
 import TablePDF from './TablePDF';
 import PropTypes from 'prop-types';
 

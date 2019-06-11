@@ -11,7 +11,7 @@ import SearchByDate from './SearchByDate';
 import moment from 'moment';
 import withSpinner from './withSpinner';
 import ShopContext from '../../../context/shop-context';
-
+import Header from './Header';
 const TableWithSpinner = withSpinner(TableData);
 
 
@@ -27,7 +27,7 @@ state = {
   expenses: [],
   date: '',
   searchByDate: false,
-  sample:"test",
+  online: true,
 /*  expenseTrial:[{sno:"hello",date:"2019-12-12", name:"aaa", amount: 250}] */
 }
 
@@ -48,7 +48,19 @@ state = {
               })
             }
           })*/
-          this.getData();
+          console.log("hello" , navigator.online);
+          if(!navigator.onLine){
+            let data=JSON.parse(localStorage.getItem('Expenses'));
+            console.log(data);
+            this.setState({
+              expenses: data,
+              loading: false,
+              online: false
+            })
+        }
+          else{
+            this.getData();
+          }
 
 
   }
@@ -62,10 +74,17 @@ getData = () =>{
   const user=localStorage.getItem('username');
   axios.get("http://localhost:4000/api/getData/"+user)
   .then(res=>{
-
     this.setState({expenses: res.data, loading: false})
+    let tempData=JSON.stringify(this.state.expenses);
+    localStorage.setItem('Expenses',tempData);
   });
+
 }
+
+offlineState = () =>{
+
+}
+
 
 deleteHandler = (expense,i) => {
 console.log(i);
@@ -98,19 +117,27 @@ sort = (field) =>{
 
 download = () => {
   axios.post('/create-pdf',this.state)
-  
+
 }
 
+
   render(){
+
+    if(!this.state.online){
+      return <TableData sort={this.sort} expenses ={this.state.expenses} deleteHandler={this.deleteHandler} isLoading={this.state.loading} />
+
+    }
+
     if(this.state.searchByDate){
       return <SearchByDate date={this.state.date} getData={this.getData} />
     }
-    console.log(this.props.state);
 
-    if(!this.context.isLoggedin){
+{/*
+  if(!this.context.isLoggedin){
       alert("User Logged Out already");
       return <Redirect exact to ="/" />
     }
+  */}
 
     {//if ( this.state.redirect ){
     /*  if(this.props.state.status.isLoggedin==false){
@@ -123,11 +150,17 @@ download = () => {
     //isLoading
     const { expenses } = this.state;
     let name = localStorage.getItem('username');
-    console.log(this.state.loading);
     return(
 
       <div className="table">
-        <Link to="/home"><Button variant="contained" color="primary"> Go Back  </Button></Link>
+        <Header />
+          <Link to="/home"><Button variant="contained" color="primary"> Go Back  </Button></Link>
+
+          <div className="search">
+            <h3>Search by date</h3>
+            <TextField name="date"  type="date" onChange = {this.handleChange} /><br />
+            <Button variant="contained" color="primary" onClick={this.search}> Search  </Button>
+          </div>
         <br />
         <h4>**Click on a table cell to order the data in ascending**</h4>
       <div className="heading"><h3>Expense History for {name} </h3></div>
@@ -136,11 +169,7 @@ download = () => {
 
 
         <br /><br />
-        <div className="search">
-          <h3>Search by date</h3>
-          <TextField name="date"  type="date" onChange = {this.handleChange} /><br />
-          <Button variant="contained" color="primary" onClick={this.search}> Search  </Button>
-        </div>
+
 
         </div>
     )

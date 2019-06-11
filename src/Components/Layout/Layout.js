@@ -1,7 +1,6 @@
 import React, { Component,Fragment } from 'react';
 import { BrowserRouter,withRouter  } from 'react-router-dom';
 import Route from 'react-router-dom/Route';
-import Header from './Home/Header';
 import Home from './Home/Home';
 import './layout.css';
 import LogForm from './Home/LogForm';
@@ -56,7 +55,6 @@ render(){
 
     <Fragment>
     {/* {null.map(val => val)} */}
-      <Header />
     <div className="components">
     <BrowserRouter>
 

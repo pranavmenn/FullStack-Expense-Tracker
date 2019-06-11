@@ -1,5 +1,5 @@
 import React, { Component,Fragment } from 'react';
-import {Bar} from 'react-chartjs-2';
+import {Line} from 'react-chartjs-2';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import moment from 'moment';
@@ -50,6 +50,8 @@ class Chart extends Component{
     })
 
     console.log(amount);
+
+  
     this.setState({
       chartData: {
         labels: displayDate,
@@ -60,14 +62,17 @@ class Chart extends Component{
             backgroundColor:'rgba(75,192,192,0.6)'
           }
         ],
-        scales: {
-          yAxes:[{
-            ticks:{
-              beginAtZero: true
-            }
-          }]
+        options:{
+          scales: {
+            yAxes:[{
+              ticks:{
+                scaleBeginAtZero: true
+              }
+            }]
+          }
         }
-      },
+        }
+      ,
       byMonth: true,
 
     })
@@ -140,7 +145,7 @@ class Chart extends Component{
               <Monthly handleChange={this.handleChange}/>
             </div>
             <div className="graph">
-              <Bar data={this.state.chartData}/>
+              <Line data={this.state.chartData}/>
             </div>
           </div>
         </Fragment>
@@ -160,7 +165,7 @@ class Chart extends Component{
               <Monthly handleChange={this.handleChange}/>
             </div>
           <div className="graph">
-            <Bar data={this.state.chartData}/>
+            <Line data={this.state.chartData}/>
           </div>
 
         </div>

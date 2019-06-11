@@ -1,8 +1,7 @@
 .card{
-  width: 380px;
-  	margin: 4em auto;
-  	padding: 3em 2em 2em 2em;
-  	border: 1px solid;
+display: flex;
+flex-direction: column;
+
 }
 
 
@@ -17,4 +16,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.home{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  margin:5%;
+
 }
